@@ -14,8 +14,10 @@ TypeScript SDK for the **Resolve** binary prediction-market protocol on Stellar 
 ## Install
 
 ```bash
-npm install @resolve-protocol/sdk
+npm install github:resolve-web/resolve-sdk
 ```
+
+The package name is reserved as `@resolve-protocol/sdk`, but a public npm release has not been published yet. Pin a commit SHA for production builds.
 
 ## Configure
 

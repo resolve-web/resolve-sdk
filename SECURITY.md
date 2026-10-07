@@ -2,7 +2,7 @@
 
 ## Supported versions
 
-Security fixes are applied to the latest published release of `@resolve-protocol/sdk` on npm.
+Security fixes are applied to the latest `main` branch until the first registry release, then to the latest published release.
 
 ## Reporting a vulnerability
 

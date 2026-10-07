@@ -1,4 +1,4 @@
-import { Networks } from "@stellar/stellar-sdk";
+import { Networks, StrKey } from "@stellar/stellar-sdk";
 
 import type { ResolveNetworkConfig } from "./types.js";
 
@@ -9,14 +9,14 @@ import type { ResolveNetworkConfig } from "./types.js";
 export const PLACEHOLDER_CONTRACT_ID =
   "CXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
 
-function assertOverrideContractId(config: ResolveNetworkConfig): void {
-  if (
-    !config.contractId ||
-    config.contractId === PLACEHOLDER_CONTRACT_ID ||
-    !config.contractId.startsWith("C")
-  ) {
-    // Soft documentation marker — ResolveClient also validates on construct.
-    void 0;
+export function assertContractId(contractId: string): void {
+  if (!contractId || contractId === PLACEHOLDER_CONTRACT_ID) {
+    throw new Error(
+      "contractId must be a real deployed Resolve contract ID (override the preset placeholder)",
+    );
+  }
+  if (!StrKey.isValidContract(contractId)) {
+    throw new Error(`contractId is not a valid Stellar contract address: ${contractId}`);
   }
 }
 
@@ -44,17 +44,12 @@ export function withContractId(
   contractId: string,
   overrides: Partial<Omit<ResolveNetworkConfig, "contractId">> = {},
 ): ResolveNetworkConfig {
-  if (!contractId || contractId === PLACEHOLDER_CONTRACT_ID) {
-    throw new Error(
-      "contractId must be a real deployed Resolve contract ID (override the preset placeholder)",
-    );
-  }
+  assertContractId(contractId);
   const config: ResolveNetworkConfig = {
     ...base,
     ...overrides,
     contractId,
   };
-  assertOverrideContractId(config);
   return config;
 }
 
@@ -63,4 +58,5 @@ export const networks = {
   futurenet: FUTURENET,
   withContractId,
   PLACEHOLDER_CONTRACT_ID,
+  assertContractId,
 } as const;

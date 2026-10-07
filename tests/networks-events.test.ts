@@ -35,6 +35,9 @@ describe("networks", () => {
     });
     expect(cfg.contractId).toBe(FAKE_CONTRACT);
     expect(cfg.rpcUrl).toBe("https://example.test");
+    expect(() => withContractId(TESTNET, "CNOTVALID")).toThrow(
+      /valid Stellar contract address/,
+    );
   });
 
   it("ResolveClient rejects placeholder contractId", () => {

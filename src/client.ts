@@ -23,7 +23,7 @@ import {
   ResolveErrorCode,
   resolveErrorTypes,
 } from "./errors.js";
-import { PLACEHOLDER_CONTRACT_ID } from "./networks.js";
+import { assertContractId } from "./networks.js";
 import {
   MarketStatus,
   Outcome,
@@ -253,15 +253,10 @@ function validateConfig(config: ResolveClientOptions): void {
   if (!config.networkPassphrase) {
     throw new Error("ResolveClient: networkPassphrase is required");
   }
-  if (!config.contractId || config.contractId === PLACEHOLDER_CONTRACT_ID) {
-    throw new Error(
-      "ResolveClient: contractId must be a real deployed contract ID (override the network preset placeholder)",
-    );
-  }
-  if (!config.contractId.startsWith("C")) {
-    throw new Error(
-      `ResolveClient: contractId looks invalid (expected C...): ${config.contractId}`,
-    );
+  try {
+    assertContractId(config.contractId);
+  } catch (error) {
+    throw new Error(`ResolveClient: ${(error as Error).message}`);
   }
 }
 

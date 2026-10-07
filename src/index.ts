@@ -21,6 +21,7 @@ export {
   TESTNET,
   FUTURENET,
   PLACEHOLDER_CONTRACT_ID,
+  assertContractId,
   withContractId,
   networks,
 } from "./networks.js";

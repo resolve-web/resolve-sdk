@@ -6,7 +6,7 @@ Security fixes are applied to the latest published release of `@resolve-protocol
 
 ## Reporting a vulnerability
 
-Please report security issues privately to **security@resolve.local**.
+Please report security issues through [GitHub private vulnerability reporting](https://github.com/resolve-web/resolve-sdk/security/advisories/new).
 
 Include:
 

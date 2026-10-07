@@ -3,6 +3,7 @@ import { describe, expect, it } from "vitest";
 import { mapMarket, mapPosition, scValHelpers } from "../src/client.js";
 import {
   ClaimKind,
+  CONTRACT_LIMITS,
   MarketStatus,
   Outcome,
   Side,
@@ -14,6 +15,11 @@ import {
 } from "../src/events.js";
 
 describe("enum type mapping", () => {
+  it("mirrors the contract lifetime limits", () => {
+    expect(CONTRACT_LIMITS.MAX_MARKET_DURATION_SECS).toBe(10_368_000n);
+    expect(CONTRACT_LIMITS.MAX_RESOLUTION_TIMEOUT_SECS).toBe(2_592_000n);
+  });
+
   it("maps Side / Outcome / MarketStatus from names and numbers", () => {
     expect(scValHelpers.mapSide("Yes")).toBe(Side.Yes);
     expect(scValHelpers.mapSide(["No"])).toBe(Side.No);

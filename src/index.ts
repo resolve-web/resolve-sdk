@@ -61,3 +61,4 @@ export {
 
 /** Re-export commonly used stellar-sdk contract helpers for app wiring. */
 export { basicNodeSigner } from "@stellar/stellar-sdk/contract";
+export { validateCreateMarket } from "./validation.js";

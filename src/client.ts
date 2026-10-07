@@ -24,6 +24,7 @@ import {
   resolveErrorTypes,
 } from "./errors.js";
 import { assertContractId } from "./networks.js";
+import { validateCreateMarket } from "./validation.js";
 import {
   MarketStatus,
   Outcome,
@@ -359,6 +360,7 @@ export class ResolveClient {
     params: CreateMarketParams,
     opts?: TxMethodOptions,
   ): Promise<AnyAssembledTx<bigint>> {
+    validateCreateMarket(params);
     return this.buildTx(
       "create_market",
       [

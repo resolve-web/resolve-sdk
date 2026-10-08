@@ -21,7 +21,7 @@ The package name is reserved as `@resolve-protocol/sdk`, but a public npm releas
 
 ## Configure
 
-Presets for Testnet / Futurenet ship with a **placeholder** `contractId` that must be overridden:
+The Testnet preset points to the verified public Resolve deployment. Futurenet retains a placeholder that must be overridden:
 
 ```ts
 import {

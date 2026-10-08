@@ -4,6 +4,7 @@ import {
   FUTURENET,
   PLACEHOLDER_CONTRACT_ID,
   TESTNET,
+  TESTNET_CONTRACT_ID,
   withContractId,
 } from "../src/networks.js";
 import { ResolveClient } from "../src/client.js";
@@ -19,8 +20,8 @@ const FAKE_CONTRACT =
   "CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFCT4";
 
 describe("networks", () => {
-  it("exposes testnet/futurenet presets with placeholder contractId", () => {
-    expect(TESTNET.contractId).toBe(PLACEHOLDER_CONTRACT_ID);
+  it("exposes the verified testnet deployment and a futurenet placeholder", () => {
+    expect(TESTNET.contractId).toBe(TESTNET_CONTRACT_ID);
     expect(FUTURENET.contractId).toBe(PLACEHOLDER_CONTRACT_ID);
     expect(TESTNET.rpcUrl).toContain("testnet");
     expect(FUTURENET.networkPassphrase).toMatch(/Future/);
@@ -40,8 +41,9 @@ describe("networks", () => {
     );
   });
 
-  it("ResolveClient rejects placeholder contractId", () => {
-    expect(() => new ResolveClient({ ...TESTNET })).toThrow(/contractId/);
+  it("ResolveClient accepts testnet and rejects placeholder contractId", () => {
+    expect(() => new ResolveClient({ ...TESTNET })).not.toThrow();
+    expect(() => new ResolveClient({ ...FUTURENET })).toThrow(/contractId/);
     expect(
       () =>
         new ResolveClient({

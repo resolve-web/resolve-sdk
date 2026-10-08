@@ -9,6 +9,14 @@ import type { ResolveNetworkConfig } from "./types.js";
 export const PLACEHOLDER_CONTRACT_ID =
   "CXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
 
+/** Verified Resolve deployment on Stellar Testnet. */
+export const TESTNET_CONTRACT_ID =
+  "CD3YJNAYKVKT72DYPVS644OPNVNW6673TUIQWGXXA4VQD7536ARWB6MZ";
+
+/** Native XLM Stellar Asset Contract on Testnet, used by the reference deployment. */
+export const TESTNET_SETTLEMENT_TOKEN_ID =
+  "CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQVU2HHGCYSC";
+
 export function assertContractId(contractId: string): void {
   if (!contractId || contractId === PLACEHOLDER_CONTRACT_ID) {
     throw new Error(
@@ -20,12 +28,12 @@ export function assertContractId(contractId: string): void {
   }
 }
 
-/** Stellar Testnet preset. Override `contractId` before use. */
+/** Stellar Testnet preset for the verified public deployment. */
 export const TESTNET: ResolveNetworkConfig = {
   networkPassphrase: Networks.TESTNET,
   rpcUrl: "https://soroban-testnet.stellar.org",
   horizonUrl: "https://horizon-testnet.stellar.org",
-  contractId: PLACEHOLDER_CONTRACT_ID,
+  contractId: TESTNET_CONTRACT_ID,
 };
 
 /** Stellar Futurenet preset. Override `contractId` before use. */
@@ -58,5 +66,7 @@ export const networks = {
   futurenet: FUTURENET,
   withContractId,
   PLACEHOLDER_CONTRACT_ID,
+  TESTNET_CONTRACT_ID,
+  TESTNET_SETTLEMENT_TOKEN_ID,
   assertContractId,
 } as const;

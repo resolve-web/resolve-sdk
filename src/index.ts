@@ -21,6 +21,8 @@ export {
   TESTNET,
   FUTURENET,
   PLACEHOLDER_CONTRACT_ID,
+  TESTNET_CONTRACT_ID,
+  TESTNET_SETTLEMENT_TOKEN_ID,
   assertContractId,
   withContractId,
   networks,

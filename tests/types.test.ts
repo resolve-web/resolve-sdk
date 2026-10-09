@@ -49,12 +49,12 @@ describe("enum type mapping", () => {
 
   it("encodes unit enums as ScVec([Symbol])", () => {
     const yes = scValHelpers.sideScVal(Side.Yes);
-    expect(yes.switch().name).toBe("scvVec");
-    const vec = yes.vec();
-    expect(vec?.[0]?.sym().toString()).toBe("Yes");
+    expect(yes.type).toBe("scvVec");
+    const vec = yes.type === "scvVec" ? yes.value : null;
+    expect(vec?.[0]?.type === "scvSymbol" ? vec[0].value : null).toBe("Yes");
 
     const invalid = scValHelpers.outcomeScVal(Outcome.Invalid);
-    expect(invalid.vec()?.[0]?.sym().toString()).toBe("Invalid");
+    expect(invalid.type === "scvVec" && invalid.value?.[0]?.type === "scvSymbol" ? invalid.value[0].value : null).toBe("Invalid");
   });
 });
 

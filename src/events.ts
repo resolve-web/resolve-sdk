@@ -148,15 +148,15 @@ export function decodeEventTopic(topicXdrBase64: string): unknown {
   try {
     return scValToNative(scVal);
   } catch {
-    switch (scVal.switch().name) {
+    switch (scVal.type) {
       case "scvSymbol":
-        return scVal.sym().toString();
+        return scVal.value;
       case "scvAddress":
         return Address.fromScVal(scVal).toString();
       case "scvU64":
-        return BigInt(scVal.u64().toString());
+        return scVal.value;
       case "scvU32":
-        return scVal.u32();
+        return scVal.value;
       default:
         return scVal;
     }

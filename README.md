@@ -9,7 +9,7 @@ TypeScript SDK for the **Resolve** binary prediction-market protocol on Stellar 
 
 ## Requirements
 
-- Node.js **20+**
+- Node.js **22.12+**
 
 ## Install
 

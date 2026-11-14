@@ -64,4 +64,11 @@ export {
 /** Re-export commonly used stellar-sdk contract helpers for app wiring. */
 export { basicNodeSigner } from "@stellar/stellar-sdk/contract";
 export { validateCreateMarket } from "./validation.js";
+export {
+  getInvalidateCountdown,
+  secondsUntilInvalidate,
+  type InvalidateCountdown,
+  type InvalidateCountdownMarket,
+  type InvalidatePhase,
+} from "./deadlines.js";
 export { parseDeployment, type ResolveDeployment } from "./deployment.js";

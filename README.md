@@ -129,6 +129,30 @@ const raw = toContractAmount("1.5", 7); // 15000000n
 const human = fromContractAmount(raw, 7); // "1.5"
 ```
 
+### Invalidation deadline countdown
+
+Permissionless `invalidate` becomes callable once `now >= market.closeAt + market.resolutionTimeout` on an open market. Use `getInvalidateCountdown` (or `secondsUntilInvalidate`) to compute remaining time purely from `Market` fields and a Unix timestamp in seconds:
+
+```ts
+import {
+  getInvalidateCountdown,
+  secondsUntilInvalidate,
+} from "@resolve-protocol/sdk";
+
+const market = await client.getMarket(marketId);
+const nowSeconds = BigInt(Math.floor(Date.now() / 1000));
+
+const countdown = getInvalidateCountdown(market, nowSeconds);
+// countdown.invalidateAt      -> bigint (closeAt + resolutionTimeout)
+// countdown.secondsUntilClose -> bigint (0n once closed)
+// countdown.remainingSeconds  -> bigint (0n once eligible or finalized)
+// countdown.canInvalidate     -> boolean
+// countdown.phase             -> "open" | "awaiting_resolution" | "invalidatable" | "finalized"
+
+const remaining = secondsUntilInvalidate(market, nowSeconds);
+// bigint (>= 0n) for open markets, or null if already resolved / invalidated
+```
+
 ### Errors
 
 Contract errors `1–18` normalize to stable codes:
